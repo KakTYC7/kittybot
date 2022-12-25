@@ -3,8 +3,15 @@
 from telegram.ext import CommandHandler, Updater, Filters, MessageHandler
 from telegram import ReplyKeyboardMarkup
 import requests
+import os
+from dotenv import load_dotenv
 
-updater = Updater(token='5895641824:AAEnBt8bZaYoUngciNZcRaZu9d71rKqKPxg')
+
+load_dotenv()
+
+secret_token = os.getenv('TOKEN')
+
+updater = Updater(token=secret_token)
 URL = 'https://api.thecatapi.com/v1/images/search'
 
 

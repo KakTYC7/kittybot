@@ -1,9 +1,15 @@
 # kittybot/send_random_image.py
 import requests
 from telegram import Bot
+import os
+from dotenv import load_dotenv
 
 
-bot = Bot(token='5895641824:AAEnBt8bZaYoUngciNZcRaZu9d71rKqKPxg')
+load_dotenv()
+
+secret_token = os.getenv('TOKEN')
+
+bot = Bot(token=secret_token)
 
 URL = 'https://api.thecatapi.com/v1/images/search'
 chat_id = 131276209
