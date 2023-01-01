@@ -3,7 +3,9 @@
 from telegram.ext import CommandHandler, Updater, Filters, MessageHandler
 from telegram import ReplyKeyboardMarkup
 import requests
+
 import os
+
 from dotenv import load_dotenv
 
 
@@ -27,8 +29,6 @@ def new_cat(update, context):
 
 
 def wake_up(update, context):
-    # В ответ на команду /start 
-    # будет отправлено сообщение 'Спасибо, что включили меня'
     chat = update.effective_chat
     name = update.message.chat.first_name
     button = ReplyKeyboardMarkup([['/newcat']], resize_keyboard=True)
@@ -44,8 +44,6 @@ def wake_up(update, context):
 updater.dispatcher.add_handler(CommandHandler('start', wake_up))
 updater.dispatcher.add_handler(CommandHandler('newcat', new_cat))
 
-# Метод start_polling() запускает процесс polling, 
-# приложение начнёт отправлять регулярные запросы для получения обновлений.
 updater.start_polling()
-# Бот будет работать до тех пор, пока не нажмете Ctrl-C
+
 updater.idle()
