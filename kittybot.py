@@ -1,10 +1,11 @@
 # kittybot/kittybot.py
+import logging
+import os
 
 from telegram.ext import CommandHandler, Updater, Filters, MessageHandler
 from telegram import ReplyKeyboardMarkup
 import requests
 
-import os
 
 from dotenv import load_dotenv
 
@@ -12,6 +13,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 secret_token = os.getenv('TOKEN')
+
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO)
 
 updater = Updater(token=secret_token)
 URL = 'https://api.thecatapi.com/v1/images/search'
@@ -48,9 +53,15 @@ def wake_up(update, context):
 
     context.bot.send_photo(chat.id, get_new_image())
 
-updater.dispatcher.add_handler(CommandHandler('start', wake_up))
-updater.dispatcher.add_handler(CommandHandler('newcat', new_cat))
+def main():
+    updater = Updater(token=secret_token)
 
-updater.start_polling()
+    updater.dispatcher.add_handler(CommandHandler('start', wake_up))
+    updater.dispatcher.add_handler(CommandHandler('newcat', new_cat))
 
-updater.idle()
+    updater.start_polling()
+    updater.idle()
+
+
+if __name__ == '__main__':
+    main() 
