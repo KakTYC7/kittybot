@@ -2,7 +2,7 @@
 import logging
 import os
 
-from telegram.ext import CommandHandler, Updater, Filters, MessageHandler
+from telegram.ext import CommandHandler, Updater
 from telegram import ReplyKeyboardMarkup
 import requests
 
@@ -26,10 +26,10 @@ def get_new_image():
     try:
         response = requests.get(URL)
     except Exception as error:
-        print(error)      
+        print(error)
         new_url = 'https://api.thedogapi.com/v1/images/search'
         response = requests.get(new_url)
-    
+
     response = response.json()
     random_cat = response[0].get('url')
     return random_cat
@@ -53,6 +53,7 @@ def wake_up(update, context):
 
     context.bot.send_photo(chat.id, get_new_image())
 
+
 def main():
     updater = Updater(token=secret_token)
 
@@ -64,4 +65,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main() 
+    main()
